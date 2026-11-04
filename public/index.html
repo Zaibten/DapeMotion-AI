@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Reel Studio — AI fashion reels</title>
+<style>
+:root{
+  --bg:#faf6f3;--surface:#fff;--ink:#241a21;--muted:#7a6b74;--line:#eadfe4;
+  --a1:#7a2e5c;--a2:#c9893f;--ok:#2f9e6b;--err:#c8453f;--shadow:0 10px 30px rgba(60,20,45,.10);
+  --r:18px;color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#150f14;--surface:#1f161d;--ink:#f4ebf0;--muted:#a898a2;--line:#33262f;--shadow:0 10px 30px rgba(0,0,0,.45);color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  padding-bottom:env(safe-area-inset-bottom);
+  background-image:radial-gradient(900px 400px at 85% -10%,rgba(201,137,63,.16),transparent),radial-gradient(800px 420px at -10% 0,rgba(122,46,92,.16),transparent);background-repeat:no-repeat}
+button,input,select,textarea{font:inherit;color:inherit}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
+.bar{max-width:1200px;margin:auto;display:flex;align-items:center;gap:1rem;padding:.8rem 1.2rem}
+.logo{display:flex;align-items:center;gap:.6rem;font-weight:700;letter-spacing:.2px}
+.logo i{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--a1),var(--a2));display:grid;place-items:center;color:#fff;font-style:normal;box-shadow:0 6px 16px rgba(122,46,92,.35)}
+nav{margin-left:auto;display:flex;gap:.3rem;background:var(--surface);border:1px solid var(--line);padding:.25rem;border-radius:999px}
+nav button{border:0;background:none;padding:.45rem 1rem;border-radius:999px;cursor:pointer;color:var(--muted);transition:.25s}
+nav button.on{background:linear-gradient(135deg,var(--a1),#a23e7c);color:#fff;box-shadow:0 4px 14px rgba(122,46,92,.35)}
+main{max-width:1200px;margin:auto;padding:1.4rem 1.2rem 4rem}
+.view{display:none;animation:up .5s cubic-bezier(.2,.8,.2,1)}.view.on{display:block}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes shimmer{to{background-position:-200% 0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,137,63,.5)}50%{box-shadow:0 0 0 10px rgba(201,137,63,0)}}
+.hero h1{font-size:clamp(1.7rem,4.5vw,2.8rem);line-height:1.12;margin:.2rem 0 .5rem;letter-spacing:-.02em}
+.hero h1 span{background:linear-gradient(90deg,var(--a1),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:60ch;margin:0 0 1.4rem}
+.grid{display:grid;gap:1.2rem;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1.2rem;box-shadow:var(--shadow)}
+.card h3{margin:0 0 .8rem;font-size:1rem}
+label.l{display:block;font-weight:600;font-size:.9rem;margin:1rem 0 .4rem}
+label.l small{font-weight:400;color:var(--muted)}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:1.2rem;text-align:center;color:var(--muted);cursor:pointer;transition:.25s;position:relative}
+.drop:hover,.drop.over{border-color:var(--a2);background:rgba(201,137,63,.07);transform:translateY(-1px)}
+.drop input{display:none}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:.6rem;margin-top:.8rem}
+.thumbs div{position:relative;aspect-ratio:3/4;border-radius:10px;overflow:hidden;animation:up .3s}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.thumbs b{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center;cursor:pointer;font-size:14px}
+.thumbs em{position:absolute;left:4px;bottom:4px;font-size:.65rem;background:var(--a2);color:#fff;padding:1px 6px;border-radius:99px;font-style:normal}
+textarea,select,input[type=number]{width:100%;padding:.7rem .85rem;border:1px solid var(--line);border-radius:12px;background:var(--bg);outline:none;transition:.2s}
+textarea{min-height:120px;resize:vertical}
+textarea:focus,select:focus,input:focus{border-color:var(--a1);box-shadow:0 0 0 4px rgba(122,46,92,.14)}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{border:1px solid var(--line);background:var(--bg);padding:.4rem .8rem;border-radius:999px;cursor:pointer;font-size:.85rem;transition:.2s;user-select:none}
+.chip:hover{transform:translateY(-1px);border-color:var(--a2)}
+.chip.on{background:linear-gradient(135deg,var(--a1),#a23e7c);color:#fff;border-color:transparent}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media (max-width:520px){.row{grid-template-columns:1fr}}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+@media (max-width:720px){.row3{grid-template-columns:1fr}}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem .9rem;border:1px solid var(--line);border-radius:12px;margin-top:.6rem;cursor:pointer}
+.sw span small{display:block;color:var(--muted);font-size:.8rem}
+.sw input{display:none}.sw u{width:44px;height:26px;border-radius:99px;background:var(--line);position:relative;transition:.25s;flex:none}
+.sw u::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.sw input:checked+u{background:var(--ok)}.sw input:checked+u::after{transform:translateX(18px)}
+.btn{border:0;border-radius:14px;padding:.9rem 1.3rem;cursor:pointer;font-weight:600;color:#fff;background:linear-gradient(110deg,var(--a1),#a23e7c,var(--a2),var(--a1));background-size:250% 100%;transition:.3s;box-shadow:0 8px 20px rgba(122,46,92,.35)}
+.btn:hover{background-position:100% 0;transform:translateY(-1px)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.btn.sm{padding:.55rem .9rem;font-size:.88rem;border-radius:11px}
+.btn.full{width:100%;margin-top:1.2rem}
+.note{color:var(--muted);font-size:.82rem;margin:.6rem 0 0}
+.empty{text-align:center;color:var(--muted);padding:2.2rem 1rem}
+.empty .ph{width:84px;height:130px;margin:0 auto 1rem;border-radius:14px;background:linear-gradient(110deg,var(--line) 30%,transparent 50%,var(--line) 70%);background-size:200% 100%;animation:shimmer 2.2s linear infinite}
+.steps{list-style:none;margin:0;padding:0}
+.steps li{display:flex;gap:.8rem;align-items:center;padding:.6rem 0;color:var(--muted);transition:.3s}
+.steps li i{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:.8rem;flex:none;transition:.3s}
+.steps li.act{color:var(--ink)}.steps li.act i{border-color:var(--a2);border-top-color:transparent;animation:spin 1s linear infinite}
+.steps li.done{color:var(--ink)}.steps li.done i{background:var(--ok);border-color:var(--ok);color:#fff}
+.msg{margin:.8rem 0 0;font-size:.9rem;color:var(--muted)}.msg.err{color:var(--err)}
+.warn{margin-top:.6rem;padding:.6rem .8rem;border-radius:10px;background:rgba(201,137,63,.14);font-size:.85rem}
+.lib{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr))}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;cursor:pointer;box-shadow:var(--shadow);transition:.3s;animation:up .5s backwards}
+.item:hover{transform:translateY(-4px)}
+.item .im{aspect-ratio:9/14;background:linear-gradient(110deg,var(--line) 30%,transparent 50%,var(--line) 70%);background-size:200% 100%;position:relative;overflow:hidden}
+.item .im.load{animation:shimmer 1.6s linear infinite}
+.item img{width:100%;height:100%;object-fit:cover;display:block}
+.badge{position:absolute;top:8px;left:8px;padding:2px 10px;border-radius:99px;font-size:.72rem;color:#fff;background:rgba(0,0,0,.55);backdrop-filter:blur(6px)}
+.badge.done{background:var(--ok)}.badge.error{background:var(--err)}
+.item p{margin:0;padding:.7rem .8rem;font-size:.85rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* pose picker */
+.seg-tabs{display:flex;gap:.3rem;margin-bottom:.7rem}
+.seg-tabs button{border:1px solid var(--line);background:var(--bg);padding:.35rem .8rem;border-radius:999px;cursor:pointer;font-size:.85rem;color:var(--muted)}
+.seg-tabs button.on{background:linear-gradient(135deg,var(--a1),#a23e7c);color:#fff;border-color:transparent}
+.pose-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,96px),1fr));gap:.55rem;max-height:340px;overflow-y:auto;padding:.2rem}
+.pose-card{position:relative;border:2px solid var(--line);border-radius:12px;aspect-ratio:2/3;cursor:pointer;overflow:hidden;background:linear-gradient(160deg,#f4ecf1,#e7dce3);transition:.2s;display:grid;place-items:center;text-align:center}
+@media (prefers-color-scheme:dark){.pose-card{background:linear-gradient(160deg,#2a1e28,#1e151c)}}
+.pose-card:hover{transform:translateY(-2px);border-color:var(--a2)}
+.pose-card.on{border-color:var(--a2);box-shadow:0 0 0 3px rgba(201,137,63,.3)}
+.pose-card img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.pose-card .emo{font-size:1.9rem;line-height:1}
+.pose-card .lb{position:absolute;left:0;right:0;bottom:0;font-size:.66rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:14px 4px 4px;text-align:center;line-height:1.1}
+.pose-card .chk{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:var(--a2);color:#fff;display:none;place-items:center;font-size:11px;font-weight:700}
+.pose-card.on .chk{display:grid}
+
+.modal{position:fixed;inset:0;z-index:50;display:none;background:rgba(10,5,9,.6);backdrop-filter:blur(8px);padding:max(.8rem,env(safe-area-inset-top)) .8rem max(.8rem,env(safe-area-inset-bottom));overflow:auto}
+.modal.on{display:block;animation:fade .25s}@keyframes fade{from{opacity:0}}
+.sheet{max-width:1100px;margin:auto;background:var(--surface);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden;animation:pop .35s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateY(20px)}}
+.sh{display:flex;gap:1rem;align-items:center;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.sh h2{margin:0;font-size:1.05rem;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.x{border:0;background:var(--bg);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.2rem}
+.sb{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:1.4rem;padding:1.2rem}
+@media (max-width:800px){.sb{grid-template-columns:1fr}}
+.pl{position:relative;aspect-ratio:9/16;max-height:78vh;margin:auto;width:100%;background:#000;border-radius:16px;overflow:hidden}
+.pl video,.pl .ph2{width:100%;height:100%;object-fit:cover;display:block}
+.ph2{display:grid;place-items:center;color:#fff;text-align:center;padding:1rem;background:linear-gradient(135deg,#3a1630,#1c0f18)}
+.tabs{display:flex;gap:.3rem;border-bottom:1px solid var(--line);margin-bottom:1rem}
+.tabs button{border:0;background:none;padding:.6rem 1rem;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{color:var(--ink);border-color:var(--a1);font-weight:600}
+.pane{display:none;animation:up .35s}.pane.on{display:block}
+input[type=range]{width:100%;accent-color:var(--a1);height:28px}
+.film{display:flex;gap:.4rem;overflow-x:auto;padding:.3rem 0 .6rem;scroll-snap-type:x proximity}
+.film img{height:96px;aspect-ratio:9/16;object-fit:cover;border-radius:8px;border:2px solid transparent;cursor:pointer;scroll-snap-align:center;transition:.2s;flex:none}
+.film img:hover{transform:translateY(-3px)}.film img.on{border-color:var(--a2);box-shadow:0 6px 16px rgba(201,137,63,.45)}
+.tl{display:flex;justify-content:space-between;color:var(--muted);font-size:.85rem}
+.cv{display:flex;gap:1rem;align-items:center;margin-top:1rem;padding:.8rem;border:1px solid var(--line);border-radius:14px}
+.cv img{width:72px;aspect-ratio:9/16;object-fit:cover;border-radius:10px;background:var(--line)}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:.8rem}
+.pp{aspect-ratio:2/3;border-radius:14px;overflow:hidden;position:relative;background:linear-gradient(110deg,var(--line) 30%,transparent 50%,var(--line) 70%);background-size:200% 100%;animation:up .4s}
+.pp.pending{animation:shimmer 1.4s linear infinite}
+.pp img{width:100%;height:100%;object-fit:cover;display:block}
+.pp .cap{position:absolute;left:0;right:0;bottom:0;padding:.5rem .6rem;color:#fff;font-size:.8rem;background:linear-gradient(transparent,rgba(0,0,0,.7));display:flex;justify-content:space-between;align-items:center;gap:.4rem}
+.pp .cap a{color:#fff;text-decoration:none;background:rgba(255,255,255,.25);padding:2px 8px;border-radius:99px}
+.pp .er{position:absolute;inset:0;padding:.7rem;font-size:.75rem;color:var(--err);display:grid;place-items:center;text-align:center}
+#toasts{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:90;display:grid;gap:.5rem;width:min(92vw,420px)}
+.toast{background:#241a21;color:#fff;padding:.75rem 1rem;border-radius:12px;box-shadow:var(--shadow);animation:up .3s;font-size:.9rem}
+.toast.err{background:var(--err)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="logo"><i>✦</i><span>Reel Studio</span></div>
+  <nav><button data-v="create" class="on">Create</button><button data-v="library">Library</button></nav>
+</div></header>
+<main>
+<section class="view on" id="v-create">
+  <div class="hero"><h1>Turn outfit photos into <span>cinematic model reels</span></h1><p>Upload your outfit, choose segment & camera direction, and get an HD reel with pose transitions, cover frames and stills.</p></div>
+  <div class="grid">
+    <form class="card" id="form">
+      <h3>1 · Your outfit</h3>
+      <div class="drop" id="dz-img"><input type="file" id="in-img" accept="image/*" multiple>Drop outfit photos or <b>tap to choose</b><br><small>Front, back, sleeve and close-ups work best (up to 8)</small></div>
+      <div class="thumbs" id="th-img"></div>
+      <label class="l">Reference reel <small>(optional, its style is analysed)</small></label>
+      <div class="drop" id="dz-vid"><input type="file" id="in-vid" accept="video/mp4,video/quicktime"><span id="vid-name">Drop a sample video or <b>tap to choose</b></span></div>
+
+      <h3 style="margin-top:1.4rem">2 · Segment & Direction</h3>
+      <label class="l">Who is wearing it?</label>
+      <div class="chips" id="segments"></div>
+      <div class="chips" id="presets" style="margin-top:.6rem"></div>
+      <label class="l">Prompt</label>
+      <textarea id="prompt" required></textarea>
+
+      <div class="row3">
+        <div><label class="l">Setting</label><select id="setting"></select></div>
+        <div><label class="l">Aspect</label><select id="aspect"><option value="9:16">9:16 (reel)</option><option value="4:5">4:5 (feed)</option><option value="1:1">1:1 (square)</option></select></div>
+        <div><label class="l">Resolution</label><select id="outScale"><option value="1080">HD 1080</option><option value="1440">QHD 1440</option></select></div>
+      </div>
+
+      <label class="l">Camera motion</label>
+      <div class="chips" id="motions"></div>
+
+      <div class="row3" style="margin-top:.6rem">
+        <div><label class="l">Transition</label><select id="transitionName">
+          <option value="fade">Fade</option><option value="wipe">Wipe</option><option value="slide">Slide</option>
+          <option value="circle">Circle</option><option value="smooth">Smooth</option><option value="dissolve">Dissolve</option>
+        </select></div>
+        <div><label class="l">Reel length <small>sec</small></label><input type="number" id="reelSeconds" min="4" max="30" step="1" value="10"></div>
+        <div><label class="l">Transition <small>sec</small></label><input type="number" id="transition" min="0.2" max="1.5" step="0.1" value="0.6"></div>
+      </div>
+      <div class="row" style="margin-top:.6rem">
+        <div><label class="l">Zoom amount</label><input type="range" id="zoomAmt" min="0.02" max="0.4" step="0.01" value="0.14"></div>
+        <div><label class="l">Pan speed</label><input type="range" id="panSpeed" min="0.3" max="1.5" step="0.05" value="1"></div>
+      </div>
+
+      <label class="l">Accessories</label>
+      <div class="chips" id="accessories"></div>
+
+      <label class="sw"><span>Start from AI model photos<small>Recommended: reel begins with an AI model wearing your dress</small></span><input type="checkbox" id="sfm" checked><u></u></label>
+
+      <h3 style="margin-top:1.4rem">3 · Model photos</h3>
+      <div class="seg-tabs" id="seg-tabs"></div>
+      <div class="pose-grid" id="poses"></div>
+      <p class="note">Each pose is one image generation. Long reels and 1440p use more time and CPU.</p>
+      <button class="btn full" id="go" type="submit">Generate reel</button>
+    </form>
+
+    <aside class="card" id="side">
+      <h3>Progress</h3>
+      <div class="empty" id="idle"><div class="ph"></div>Your reel will appear here.<br>Generation takes a few minutes.</div>
+      <div id="prog" hidden>
+        <ul class="steps" id="steps"></ul><p class="msg" id="pmsg"></p><div id="pwarn"></div>
+        <button class="btn sm" id="open" hidden style="margin-top:1rem">Open in studio</button>
+      </div>
+    </aside>
+  </div>
+</section>
+<section class="view" id="v-library"><div class="hero"><h1>Your <span>library</span></h1></div><div class="lib" id="lib"></div><div class="empty" id="lib-empty" hidden><div class="ph"></div>Nothing here yet. Create your first reel.</div></section>
+</main>
+
+<div class="modal" id="modal"><div class="sheet">
+  <div class="sh"><h2 id="m-title"></h2><button class="btn ghost sm" id="m-del">Delete</button><button class="x" id="m-x" aria-label="Close">✕</button></div>
+  <div class="sb">
+    <div><div class="pl" id="m-player"></div></div>
+    <div>
+      <div class="tabs"><button data-t="cover" class="on">Cover frame</button><button data-t="photos">Model photos</button></div>
+      <div class="pane on" id="p-cover">
+        <div class="tl"><span>Drag to choose the cover frame</span><span id="m-time">0.0s</span></div>
+        <input type="range" id="m-range" min="0" max="10" step="0.05" value="0">
+        <div class="film" id="m-film"></div>
+        <button class="btn sm" id="m-setcover">Use this frame as cover</button>
+        <div class="cv" id="m-cover" hidden><img id="m-cover-img" alt="Cover"><div><b>Cover saved</b><br><small id="m-cover-t"></small><br><a id="m-cover-dl" download class="btn ghost sm" style="display:inline-block;margin-top:.5rem;text-decoration:none">Download cover</a></div></div>
+        <p style="margin-top:1rem"><a id="m-vdl" class="btn ghost sm" style="text-decoration:none;display:inline-block" download>Download video (MP4)</a></p>
+      </div>
+      <div class="pane" id="p-photos">
+        <div class="pg" id="m-pg"></div>
+        <label class="l">Generate more poses</label>
+        <div class="seg-tabs" id="m-seg-tabs"></div>
+        <div class="pose-grid" id="m-poses"></div>
+        <button class="btn sm" id="m-genposes" style="margin-top:.8rem">Generate selected poses</button>
+      </div>
+    </div>
+  </div>
+</div></div>
+<div id="toasts"></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const toast=(m,err)=>{const t=document.createElement('div');t.className='toast'+(err?' err':'');t.textContent=m;$('#toasts').append(t);setTimeout(()=>t.remove(),5000)};
+const api=async(u,o)=>{const r=await fetch(u,o);const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||r.statusText);return j};
+const PRESETS={
+ 'Indoor lounge':'A model in a bright minimal beige living room wearing the outfit from the reference image turns slowly toward the camera, smiles softly, touches the sleeve embroidery, then adjusts the dupatta. Slow cinematic push-in, soft window light, vertical 9:16.',
+ 'Courtyard':'A model in a sunlit white courtyard with palm plants walks slowly toward the camera wearing the outfit from the reference image. A light breeze moves the dupatta. She pauses, looks at her sleeve embroidery and smiles. Golden daylight, slow cinematic push-in, vertical 9:16.',
+ 'Studio runway':'A model on a clean neutral studio backdrop wearing the outfit from the reference image does a slow confident turn, showing the front, side and back embroidery. Soft diffused light, smooth gimbal movement, vertical 9:16.',
+ 'Wedding hero':'Bridal entrance: the model walks toward the camera in slow motion, jewelry catching the light, dupatta trailing, warm golden interior with bokeh lights, confident soft smile.',
+ 'Street style':'City street editorial: the model walks with a slight sway, hands brushing the fabric, quick cut to a back view then a detail close-up of embroidery. Natural afternoon light, handheld feel.'
+};
+
+let cfg={poses:[],motions:[],transitions:[],accessories:[],segments:[],settings:[]};
+let images=[],video=null,curId=null,openId=null,studio=null,timer=null;
+let activeSeg='female', activeModalSeg='female';
+
+$$('nav button').forEach(b=>b.onclick=()=>show(b.dataset.v));
+function show(v){$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));if(v==='library')loadLib()}
+
+// presets
+Object.entries(PRESETS).forEach(([k,v],i)=>{const c=document.createElement('span');c.className='chip';c.textContent=k;c.onclick=()=>{$('#prompt').value=v;$$('#presets .chip').forEach(x=>x.classList.toggle('on',x===c))};$('#presets').append(c);if(!i)c.click()});
+
+function buildConfig(){
+  // segments
+  $('#segments').innerHTML='';
+  cfg.segments.forEach((s,i)=>{const c=document.createElement('span');c.className='chip'+(s===activeSeg?' on':'');c.textContent=s[0].toUpperCase()+s.slice(1);c.onclick=()=>{activeSeg=s;$$('#segments .chip').forEach(x=>x.classList.toggle('on',x.textContent.toLowerCase()===s));renderPoseGrid('poses',activeSeg)};$('#segments').append(c)});
+  // settings
+  $('#setting').innerHTML=cfg.settings.map(s=>`<option value="${s}">${s[0].toUpperCase()+s.slice(1)}</option>`).join('');
+  // motions
+  $('#motions').innerHTML='';
+  cfg.motions.forEach((m,i)=>{const c=document.createElement('span');c.className='chip'+(i===0?' on':'');c.textContent=m;c.dataset.m=m;c.onclick=()=>{$$('#motions .chip').forEach(x=>x.classList.toggle('on',x===c))};$('#motions').append(c)});
+  // accessories
+  $('#accessories').innerHTML='';
+  cfg.accessories.forEach((a,i)=>{const c=document.createElement('span');c.className='chip'+(i===0?' on':'');c.textContent=a.label;c.dataset.k=a.key;c.onclick=()=>{$$('#accessories .chip').forEach(x=>x.classList.toggle('on',x===c))};$('#accessories').append(c)});
+  // modal seg tabs
+  $('#m-seg-tabs').innerHTML='';
+  cfg.segments.forEach(s=>{const b=document.createElement('button');b.textContent=s[0].toUpperCase()+s.slice(1);b.onclick=()=>{activeModalSeg=s;$$('#m-seg-tabs button').forEach(x=>x.classList.toggle('on',x===b));renderPoseGrid('m-poses',s,['sit','back','detail'])};$('#m-seg-tabs').append(b)});
+  $$('#m-seg-tabs button')[0]?.classList.add('on');
+  // default pose selections for the female segment
+  renderPoseGrid('poses',activeSeg,['front','turn','walk']);
+  renderPoseGrid('m-poses',activeModalSeg,['sit','back','detail']);
+}
+
+function renderPoseGrid(elId, seg, defaults=[]){
+  const el=$('#'+elId); el.innerHTML='';
+  cfg.poses.filter(p=>p.seg===seg).forEach(p=>{
+    const c=document.createElement('div'); c.className='pose-card'+(defaults.includes(p.key)&&!el.querySelector('.on')?' on':''); c.dataset.k=p.key;
+    // Uses /pose-previews/<key>.jpg if it exists, else emoji
+    c.innerHTML=`<img src="/pose-previews/${p.key}.jpg" alt="" onerror="this.remove()"><div class="emo">${p.preview||'✨'}</div><div class="lb">${esc(p.label)}</div><div class="chk">✓</div>`;
+    c.onclick=()=>c.classList.toggle('on');
+    el.append(c);
+  });
+}
+const picked=(elId)=>$$('#'+elId+' .pose-card.on').map(c=>c.dataset.k);
+const activeChip=(elId,attr='k')=>{const c=$('#'+elId+' .chip.on');return c?c.dataset[attr]||c.textContent:null};
+
+api('/api/config').then(c=>{cfg=c;buildConfig()}).catch(e=>toast(e.message,1));
+
+// uploads
+function dz(box,input,fn){box.onclick=()=>input.click();input.onchange=()=>fn([...input.files]);
+ ['dragover','dragenter'].forEach(e=>box.addEventListener(e,x=>{x.preventDefault();box.classList.add('over')}));
+ ['dragleave','drop'].forEach(e=>box.addEventListener(e,x=>{x.preventDefault();box.classList.remove('over')}));
+ box.addEventListener('drop',x=>fn([...x.dataTransfer.files]))}
+dz($('#dz-img'),$('#in-img'),fs=>{images=[...images,...fs.filter(f=>f.type.startsWith('image/'))].slice(0,8);drawThumbs()});
+dz($('#dz-vid'),$('#in-vid'),fs=>{video=fs.find(f=>f.type.startsWith('video/'))||null;$('#vid-name').innerHTML=video?'🎬 '+esc(video.name):'Drop a sample video or <b>tap to choose</b>'});
+function drawThumbs(){const t=$('#th-img');t.innerHTML='';images.forEach((f,i)=>{const d=document.createElement('div');d.innerHTML=`<img src="${URL.createObjectURL(f)}" alt=""><b title="Remove">×</b>${i?'':'<em>video start</em>'}`;d.querySelector('b').onclick=e=>{e.stopPropagation();images.splice(i,1);drawThumbs()};t.append(d)})}
+
+// create
+$('#form').onsubmit=async e=>{
+ e.preventDefault(); if(!images.length) return toast('Add at least one outfit photo.',1);
+ if(!$('#prompt').value.trim()) return toast('Write a prompt.',1);
+ const fd=new FormData(); images.forEach(f=>fd.append('images',f)); if(video)fd.append('video',video);
+ fd.set('prompt',$('#prompt').value);
+ fd.set('motion',activeChip('motions','m')||'zoom');
+ fd.set('transitionName',$('#transitionName').value);
+ fd.set('setting',$('#setting').value);
+ fd.set('aspect',$('#aspect').value);
+ fd.set('outScale',$('#outScale').value);
+ fd.set('segment',activeSeg);
+ fd.set('accessories',activeChip('accessories','k')||'none');
+ fd.set('transition',$('#transition').value);
+ fd.set('zoomAmt',$('#zoomAmt').value);
+ fd.set('panSpeed',$('#panSpeed').value);
+ fd.set('reelSeconds',$('#reelSeconds').value);
+ if($('#sfm').checked) fd.set('startFromModel','on');
+ fd.set('poses',picked('poses').join(','));
+ $('#go').disabled=true;
+ try{
+   const {id}=await api('/api/generate',{method:'POST',body:fd});
+   curId=id; $('#idle').hidden=true; $('#prog').hidden=false; $('#open').hidden=true; poll();
+   if(innerWidth<900)$('#side').scrollIntoView({behavior:'smooth'});
+ } catch(err){toast(err.message,1);$('#go').disabled=false}
+};
+$('#open').onclick=()=>openStudio(curId);
+
+function drawProgress(j){
+ $('#steps').innerHTML=j.steps.map((s,i)=>`<li class="${i<j.step||j.status==='done'?'done':i===j.step&&j.status==='running'?'act':''}"><i>${i<j.step||j.status==='done'?'✓':i+1}</i>${esc(s)}</li>`).join('');
+ const m=$('#pmsg'); m.className='msg'+(j.status==='error'?' err':''); m.textContent=j.status==='error'?j.error:j.message;
+ $('#pwarn').innerHTML=j.warning?`<div class="warn">${esc(j.warning)}</div>`:'';
+ if(j.status==='done'){$('#open').hidden=false;$('#go').disabled=false}
+ if(j.status==='error')$('#go').disabled=false;
+}
+async function poll(){
+ clearTimeout(timer); if(!curId)return;
+ try{
+   const j=await api('/api/jobs/'+curId); drawProgress(j);
+   if(openId===j.id)updateStudio(j);
+   if(j.status==='running'){timer=setTimeout(poll,3500)}
+   else if(j.status==='done'&&!j._announced){toast('Your reel is ready ✨');curId=null}
+   else curId=null
+ } catch{timer=setTimeout(poll,5000)}
+}
+
+// library
+async function loadLib(){
+ const jobs=await api('/api/jobs'); $('#lib-empty').hidden=!!jobs.length;
+ $('#lib').innerHTML=jobs.map((j,i)=>{const img=j.cover?.url||j.frames?.[0]?.url||j.startFrame||j.refs?.[0];
+  return `<div class="item" data-id="${j.id}" style="animation-delay:${i*40}ms"><div class="im ${img?'':'load'}">${img?`<img src="${img}" loading="lazy" alt="">`:''}<span class="badge ${j.status}">${j.status==='running'?'Generating':j.status==='done'?'Ready':'Failed'}</span></div><p>${esc(j.title)}</p></div>`}).join('');
+ $$('.item').forEach(it=>it.onclick=()=>openStudio(it.dataset.id));
+}
+
+// studio
+async function openStudio(id){
+ openId=id; studio=null; $('#modal').classList.add('on'); document.body.style.overflow='hidden';
+ $('#m-player').innerHTML='<div class="ph2">Loading…</div>';
+ try{updateStudio(await api('/api/jobs/'+id))}catch(e){toast(e.message,1)}
+ pollStudio();
+}
+function pollStudio(){clearTimeout(studio); if(!openId)return; studio=setTimeout(async()=>{try{updateStudio(await api('/api/jobs/'+openId))}catch{}pollStudio()},3500)}
+let built=null;
+function updateStudio(j){
+ if(openId!==j.id)return;
+ $('#m-title').textContent=j.title;
+ const vid=$('#m-player video');
+ if(j.video&&(!vid||built!==j.video.url)){
+   built=j.video.url;
+   $('#m-player').innerHTML=`<video src="${j.video.url}" controls playsinline loop muted poster="${j.startFrame||''}"></video>`;
+   const v=$('#m-player video');
+   $('#m-range').max=String(j.reelSeconds||10);
+   v.ontimeupdate=()=>{if(!drag){$('#m-range').value=v.currentTime;label(v.currentTime)}};
+   $('#m-vdl').href=j.video.url;
+ } else if(!j.video){
+   built=null;
+   $('#m-player').innerHTML=`<div class="ph2"><div>${j.status==='error'?esc(j.error):'Your video is still rendering…<br><small>'+esc(j.message)+'</small>'}</div></div>`;
+ }
+ const fl=$('#m-film'), sig=(j.frames||[]).length;
+ if(fl.dataset.n!=sig){fl.dataset.n=sig;fl.innerHTML=(j.frames||[]).map(f=>`<img src="${f.url}" data-t="${f.time}" alt="Frame at ${f.time}s">`).join('');
+  $$('#m-film img').forEach(im=>im.onclick=()=>seek(+im.dataset.t))}
+ if(j.cover){$('#m-cover').hidden=false;$('#m-cover-img').src=j.cover.url;$('#m-cover-t').textContent='Frame at '+j.cover.time.toFixed(1)+'s';$('#m-cover-dl').href=j.cover.url}
+ $('#m-pg').innerHTML=(j.poses||[]).length?j.poses.map(p=>p.status==='done'?`<div class="pp"><img src="${p.url}" loading="lazy" alt="${esc(p.label)}"><div class="cap">${esc(p.label)}<a href="${p.url}" download>Save</a></div></div>`:p.status==='error'?`<div class="pp"><div class="er">${esc(p.label)} failed<br>${esc((p.error||'').slice(0,90))}</div></div>`:`<div class="pp pending"><div class="cap">${esc(p.label)}…</div></div>`).join(''):'<p class="note">No model photos yet. Pick poses below and generate.</p>';
+}
+let drag=false;
+const label=t=>{$('#m-time').textContent=t.toFixed(1)+'s';const fs=$$('#m-film img');let best=null,d=99;fs.forEach(f=>{const x=Math.abs(+f.dataset.t-t);if(x<d){d=x;best=f}});fs.forEach(f=>f.classList.toggle('on',f===best))};
+function seek(t){const v=$('#m-player video');if(!v)return;v.pause();v.currentTime=t;$('#m-range').value=t;label(t)}
+$('#m-range').oninput=e=>{drag=true;seek(+e.target.value)};$('#m-range').onchange=()=>drag=false;
+$('#m-range').addEventListener('pointerup',()=>drag=false);
+$('#m-setcover').onclick=async()=>{
+ const v=$('#m-player video');if(!v)return toast('Video not ready yet.',1);
+ try{
+   const c=await api(`/api/jobs/${openId}/cover`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({time:v.currentTime})});
+   $('#m-cover').hidden=false;$('#m-cover-img').src=c.url;$('#m-cover-t').textContent='Frame at '+c.time.toFixed(1)+'s';$('#m-cover-dl').href=c.url;toast('Cover saved')
+ }catch(e){toast(e.message,1)}};
+$('#m-genposes').onclick=async()=>{
+ const k=picked('m-poses');if(!k.length)return toast('Choose at least one pose.',1);
+ try{
+   await api(`/api/jobs/${openId}/poses`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({poses:k})});
+   toast('Generating '+k.length+' pose(s)…');$$('.tabs button')[1].click()
+ }catch(e){toast(e.message,1)}};
+$$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$$('.pane').forEach(p=>p.classList.toggle('on',p.id==='p-'+b.dataset.t))});
+function closeStudio(){openId=null;built=null;clearTimeout(studio);$('#modal').classList.remove('on');document.body.style.overflow='';$('#m-player').innerHTML='';if($('#v-library').classList.contains('on'))loadLib()}
+$('#m-x').onclick=closeStudio;$('#modal').onclick=e=>{if(e.target.id==='modal')closeStudio()};
+addEventListener('keydown',e=>{if(e.key==='Escape'&&openId)closeStudio()});
+$('#m-del').onclick=async()=>{if(!confirm('Delete this project and all its files?'))return;try{await api('/api/jobs/'+openId,{method:'DELETE'});closeStudio();toast('Deleted')}catch(e){toast(e.message,1)}};
+</script>
+</body></html>

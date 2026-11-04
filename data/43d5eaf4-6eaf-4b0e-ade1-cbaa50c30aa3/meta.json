@@ -1,0 +1,101 @@
+{
+  "id": "43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3",
+  "createdAt": 1793775894280,
+  "title": "A Pakistani model in a bright minimal beige living room wearing the ou",
+  "prompt": "A Pakistani model in a bright minimal beige living room wearing the outfit from the reference image turns slowly toward the camera, smiles softly, touches her sleeve embroidery, then adjusts the dupatta. Slow cinematic push-in, soft window light, vertical 9:16.",
+  "model": "zoom",
+  "setting": "livingroom",
+  "refs": [
+    "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/ref_0.jpg"
+  ],
+  "status": "done",
+  "step": 4,
+  "steps": [
+    "Analyse",
+    "Model photos",
+    "Build reel",
+    "Finish"
+  ],
+  "message": "Complete",
+  "poses": [
+    {
+      "id": "c79bf747",
+      "key": "front",
+      "label": "Front standing",
+      "status": "done",
+      "file": "poses/front_c79bf747.jpg",
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/poses/front_c79bf747.jpg"
+    },
+    {
+      "id": "518d4c66",
+      "key": "turn",
+      "label": "Over-shoulder",
+      "status": "done",
+      "file": "poses/turn_518d4c66.jpg",
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/poses/turn_518d4c66.jpg"
+    },
+    {
+      "id": "4d627604",
+      "key": "walk",
+      "label": "Walking",
+      "status": "done",
+      "file": "poses/walk_4d627604.jpg",
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/poses/walk_4d627604.jpg"
+    }
+  ],
+  "fullPrompt": "A Pakistani model in a bright minimal beige living room wearing the outfit from the reference image turns slowly toward the camera, smiles softly, touches her sleeve embroidery, then adjusts the dupatta. Slow cinematic push-in, soft window light, vertical 9:16.\n\nOutfit details: The long kurta combines cream and mauve-plum panels with a slight sheen. Silver embroidery and beadwork form vertical lines, floral motifs, and dense geometric decoration toward the lower section. The long sleeves have cream outer panels, mauve sections, heavy silver embellishment, and scalloped cuffs. The hem is heavily decorated with repeated zigzag and scalloped edging. No dupatta or trousers are visible.\n\nReference reel style: Set in a sunlit garden with lush trees, grass, a white picket fence, and scattered flowers, the reel has a warm, elegant outdoor feel. Soft golden-hour light highlights the dark embroidered outfit and creates a natural glow. The model alternates between walking toward camera, lightly touching her neckline, placing a hand on her hip, and turning for a confident side pose. Smooth tracking and gentle push-ins keep the focus on fabric and silhouette. The pacing is unhurried, polished, and graceful, with a romantic, refined mood.\n\nNo text, no captions, no logo, no watermark, no brand name anywhere in the frame. Realistic skin, hands and fabric. Keep the outfit design, colours and embroidery exactly as in the reference photos.",
+  "startFrame": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/start.jpg",
+  "video": {
+    "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/final.mp4"
+  },
+  "frames": [
+    {
+      "time": 0.42,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_00.jpg"
+    },
+    {
+      "time": 1.25,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_01.jpg"
+    },
+    {
+      "time": 2.08,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_02.jpg"
+    },
+    {
+      "time": 2.92,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_03.jpg"
+    },
+    {
+      "time": 3.75,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_04.jpg"
+    },
+    {
+      "time": 4.58,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_05.jpg"
+    },
+    {
+      "time": 5.42,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_06.jpg"
+    },
+    {
+      "time": 6.25,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_07.jpg"
+    },
+    {
+      "time": 7.08,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_08.jpg"
+    },
+    {
+      "time": 7.92,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_09.jpg"
+    },
+    {
+      "time": 8.75,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_10.jpg"
+    },
+    {
+      "time": 9.58,
+      "url": "/data/43d5eaf4-6eaf-4b0e-ade1-cbaa50c30aa3/frames/t_11.jpg"
+    }
+  ]
+}

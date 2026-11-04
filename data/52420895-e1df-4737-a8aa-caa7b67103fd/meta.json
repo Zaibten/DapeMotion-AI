@@ -1,0 +1,47 @@
+{
+  "id": "52420895-e1df-4737-a8aa-caa7b67103fd",
+  "createdAt": 1793773822663,
+  "title": "A Pakistani model in a bright minimal beige living room wearing the ou",
+  "prompt": "A Pakistani model in a bright minimal beige living room wearing the outfit from the reference image turns slowly toward the camera, smiles softly, touches her sleeve embroidery, then adjusts the dupatta. Slow cinematic push-in, soft window light, vertical 9:16.",
+  "model": "sora-2",
+  "setting": "livingroom",
+  "refs": [
+    "/data/52420895-e1df-4737-a8aa-caa7b67103fd/ref_0.jpg"
+  ],
+  "status": "error",
+  "step": 2,
+  "steps": [
+    "Analyse",
+    "Model photo",
+    "Video",
+    "Finish"
+  ],
+  "message": "Sending to OpenAI",
+  "poses": [
+    {
+      "id": "0610a954",
+      "key": "front",
+      "label": "Front standing",
+      "status": "error",
+      "error": "Image generation failed: 400 {\n  \"error\": {\n    \"message\": \"The model 'gpt-image-1' does not exist.\",\n    \"type\": \"image_generation_user_error\",\n    \"param\": \"model\",\n    \"code\": \"invalid_value\"\n  }\n}"
+    },
+    {
+      "id": "2542fcfc",
+      "key": "turn",
+      "label": "Over-shoulder",
+      "status": "error",
+      "error": "Image generation failed: 400 {\n  \"error\": {\n    \"message\": \"The model 'gpt-image-1' does not exist.\",\n    \"type\": \"image_generation_user_error\",\n    \"param\": \"model\",\n    \"code\": \"invalid_value\"\n  }\n}"
+    },
+    {
+      "id": "d2a375c4",
+      "key": "walk",
+      "label": "Walking",
+      "status": "error",
+      "error": "Image generation failed: 400 {\n  \"error\": {\n    \"message\": \"The model 'gpt-image-1' does not exist.\",\n    \"type\": \"image_generation_user_error\",\n    \"param\": \"model\",\n    \"code\": \"invalid_value\"\n  }\n}"
+    }
+  ],
+  "fullPrompt": "A Pakistani model in a bright minimal beige living room wearing the outfit from the reference image turns slowly toward the camera, smiles softly, touches her sleeve embroidery, then adjusts the dupatta. Slow cinematic push-in, soft window light, vertical 9:16.\n\nOutfit details: The outfit features a rich mauve color with a subtle sheen, suggesting a smooth fabric such as satin. The embellishments include delicate embroidery and beadwork at the hem and sleeves. The sleeves are likely fitted or flared, adding elegance. The hem appears to be finished neatly, and the accompanying dupatta complements the trousers, also in mauve. Trousers are tailored for a sleek fit, maintaining the sophisticated look of the ensemble.\n\nNo text, no captions, no logo, no watermark, no brand name anywhere in the frame. Realistic skin, hands and fabric movement. Keep the outfit design, colours and embroidery exactly as described.",
+  "warning": "Model start frame failed, used your dress photo instead (Image generation failed: 400 {\n  \"error\": {\n    \"message\": \"The model 'gpt-image-1' does not exist.\",\n    \"type\": \"image_generation_user_error\",\n    \"param\": \"m)",
+  "startFrame": "/data/52420895-e1df-4737-a8aa-caa7b67103fd/start.jpg",
+  "error": "OpenAI video create failed: 404 "
+}

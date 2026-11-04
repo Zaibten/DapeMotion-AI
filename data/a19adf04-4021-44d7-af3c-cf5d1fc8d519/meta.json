@@ -1,0 +1,46 @@
+{
+  "id": "a19adf04-4021-44d7-af3c-cf5d1fc8d519",
+  "createdAt": 1793774832061,
+  "title": "A Pakistani model in a bright minimal beige living room wearing the ou",
+  "prompt": "A Pakistani model in a bright minimal beige living room wearing the outfit from the reference image turns slowly toward the camera, smiles softly, touches her sleeve embroidery, then adjusts the dupatta. Slow cinematic push-in, soft window light, vertical 9:16.",
+  "model": "kling-2.5-turbo",
+  "setting": "livingroom",
+  "refs": [
+    "/data/a19adf04-4021-44d7-af3c-cf5d1fc8d519/ref_0.jpg"
+  ],
+  "status": "error",
+  "step": 2,
+  "steps": [
+    "Analyse",
+    "Model photo",
+    "Video",
+    "Finish"
+  ],
+  "message": "Sending to the video model",
+  "poses": [
+    {
+      "id": "d12d51a4",
+      "key": "front",
+      "label": "Front standing",
+      "status": "done",
+      "url": "/data/a19adf04-4021-44d7-af3c-cf5d1fc8d519/poses/front_d12d51a4.jpg"
+    },
+    {
+      "id": "329f940f",
+      "key": "turn",
+      "label": "Over-shoulder",
+      "status": "done",
+      "url": "/data/a19adf04-4021-44d7-af3c-cf5d1fc8d519/poses/turn_329f940f.jpg"
+    },
+    {
+      "id": "8d22904a",
+      "key": "walk",
+      "label": "Walking",
+      "status": "done",
+      "url": "/data/a19adf04-4021-44d7-af3c-cf5d1fc8d519/poses/walk_8d22904a.jpg"
+    }
+  ],
+  "fullPrompt": "A Pakistani model in a bright minimal beige living room wearing the outfit from the reference image turns slowly toward the camera, smiles softly, touches her sleeve embroidery, then adjusts the dupatta. Slow cinematic push-in, soft window light, vertical 9:16.\n\nOutfit details: A long cream-to-mauve ombré kurta has a subtle sheen. Silver embroidery and dense beadwork form vertical lines, floral motifs, and ornate geometric borders. The round neckline is cream. Long sleeves combine cream panels with mauve sections, covered in silver embellishment, and end in pointed scalloped cuffs. The hem is heavily decorated with silver geometric embroidery and pointed scallops. No dupatta or trousers are visible in the image.\n\nNo text, no captions, no logo, no watermark, no brand name anywhere in the frame. Realistic skin, hands and fabric movement. Keep the outfit design, colours and embroidery exactly as described.",
+  "startFrame": "/data/a19adf04-4021-44d7-af3c-cf5d1fc8d519/start.jpg",
+  "error": "fal submit failed: 403 {\"detail\":\"User is locked. Reason: Exhausted balance. Top up your balance at fal.ai/dashboard/billing.\"}"
+}

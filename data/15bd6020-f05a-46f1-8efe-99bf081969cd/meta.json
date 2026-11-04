@@ -1,0 +1,117 @@
+{
+  "id": "15bd6020-f05a-46f1-8efe-99bf081969cd",
+  "createdAt": 1793776369820,
+  "title": "Animate this image into a 10 second vertical 9:16 fashion reel. The mo",
+  "prompt": "Animate this image into a 10 second vertical 9:16 fashion reel. The model gently turns her body toward the camera, smiles softly, and touches her sleeve with one hand, then adjusts the dupatta. Slow, subtle handheld camera drift with a very slow push-in. Soft natural window light, realistic fabric movement and sequin sparkle, natural facial expression and blinking, realistic hands. Keep the dress embroidery, colours and design exactly the same throughout. Cinematic, sharp, HD. No text, no logo, no watermark, no captions.",
+  "model": "mixed",
+  "setting": "courtyard",
+  "refs": [
+    "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/ref_0.jpg"
+  ],
+  "status": "done",
+  "step": 4,
+  "steps": [
+    "Analyse",
+    "Model photos",
+    "Build reel",
+    "Finish"
+  ],
+  "message": "Complete",
+  "poses": [
+    {
+      "id": "3d98af50",
+      "key": "front",
+      "label": "Front standing",
+      "status": "done",
+      "file": "poses/front_3d98af50.jpg",
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/poses/front_3d98af50.jpg"
+    },
+    {
+      "id": "ca50f4dc",
+      "key": "turn",
+      "label": "Over-shoulder",
+      "status": "done",
+      "file": "poses/turn_ca50f4dc.jpg",
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/poses/turn_ca50f4dc.jpg"
+    },
+    {
+      "id": "13811e7f",
+      "key": "walk",
+      "label": "Walking",
+      "status": "done",
+      "file": "poses/walk_13811e7f.jpg",
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/poses/walk_13811e7f.jpg"
+    },
+    {
+      "id": "c5ecb632",
+      "key": "sit",
+      "label": "Seated",
+      "status": "done",
+      "file": "poses/sit_c5ecb632.jpg",
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/poses/sit_c5ecb632.jpg"
+    },
+    {
+      "id": "05e6598d",
+      "key": "back",
+      "label": "Back view",
+      "status": "done",
+      "file": "poses/back_05e6598d.jpg",
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/poses/back_05e6598d.jpg"
+    }
+  ],
+  "fullPrompt": "Animate this image into a 10 second vertical 9:16 fashion reel. The model gently turns her body toward the camera, smiles softly, and touches her sleeve with one hand, then adjusts the dupatta. Slow, subtle handheld camera drift with a very slow push-in. Soft natural window light, realistic fabric movement and sequin sparkle, natural facial expression and blinking, realistic hands. Keep the dress embroidery, colours and design exactly the same throughout. Cinematic, sharp, HD. No text, no logo, no watermark, no captions.\n\nOutfit details: The outfit combines champagne-gold and deep mauve fabric with a soft sheen. The front features extensive silver embroidery and beadwork in vertical lines, floral motifs, dense panels, and geometric patterns. Long sleeves are mauve with champagne-gold sections and heavily embellished silver cuffs and borders. The hem is richly decorated and finished with repeated scalloped, pointed edges. No dupatta or trousers are visible in the image.\n\nReference reel style: A polished outdoor fashion reel set in a sunlit garden, framed by trees, lawn, flowers, and a white fence. Warm golden-hour light creates a soft, flattering glow with gentle background blur. The model moves slowly and confidently, alternating between walking, relaxed front-facing stances, touching her neckline, and hand-on-hip poses that highlight the flowing silhouette and patterned drape. The camera uses steady vertical tracking and subtle push-ins, shifting from full-body views to closer portraits. The pacing is unhurried, elegant, and editorial, with a graceful, romantic mood.\n\nNo text, no captions, no logo, no watermark, no brand name anywhere in the frame. Realistic skin, hands and fabric. Keep the outfit design, colours and embroidery exactly as in the reference photos.",
+  "startFrame": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/start.jpg",
+  "video": {
+    "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/final.mp4"
+  },
+  "frames": [
+    {
+      "time": 0.42,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_00.jpg"
+    },
+    {
+      "time": 1.25,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_01.jpg"
+    },
+    {
+      "time": 2.08,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_02.jpg"
+    },
+    {
+      "time": 2.92,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_03.jpg"
+    },
+    {
+      "time": 3.75,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_04.jpg"
+    },
+    {
+      "time": 4.58,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_05.jpg"
+    },
+    {
+      "time": 5.42,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_06.jpg"
+    },
+    {
+      "time": 6.25,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_07.jpg"
+    },
+    {
+      "time": 7.08,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_08.jpg"
+    },
+    {
+      "time": 7.92,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_09.jpg"
+    },
+    {
+      "time": 8.75,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_10.jpg"
+    },
+    {
+      "time": 9.58,
+      "url": "/data/15bd6020-f05a-46f1-8efe-99bf081969cd/frames/t_11.jpg"
+    }
+  ]
+}

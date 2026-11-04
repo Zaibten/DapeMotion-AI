@@ -1,0 +1,49 @@
+{
+  "id": "eff0bfbf-409c-4042-8a25-b17e32c835bd",
+  "createdAt": 1793775540417,
+  "title": "A Pakistani model in a bright minimal beige living room wearing the ou",
+  "prompt": "A Pakistani model in a bright minimal beige living room wearing the outfit from the reference image turns slowly toward the camera, smiles softly, touches her sleeve embroidery, then adjusts the dupatta. Slow cinematic push-in, soft window light, vertical 9:16.",
+  "model": "zoom",
+  "setting": "livingroom",
+  "refs": [
+    "/data/eff0bfbf-409c-4042-8a25-b17e32c835bd/ref_0.jpg"
+  ],
+  "status": "error",
+  "step": 2,
+  "steps": [
+    "Analyse",
+    "Model photos",
+    "Build reel",
+    "Finish"
+  ],
+  "message": "Building the 10s reel from 3 scene(s)",
+  "poses": [
+    {
+      "id": "1767630e",
+      "key": "front",
+      "label": "Front standing",
+      "status": "done",
+      "file": "poses/front_1767630e.jpg",
+      "url": "/data/eff0bfbf-409c-4042-8a25-b17e32c835bd/poses/front_1767630e.jpg"
+    },
+    {
+      "id": "a857f68f",
+      "key": "turn",
+      "label": "Over-shoulder",
+      "status": "done",
+      "file": "poses/turn_a857f68f.jpg",
+      "url": "/data/eff0bfbf-409c-4042-8a25-b17e32c835bd/poses/turn_a857f68f.jpg"
+    },
+    {
+      "id": "70c5f685",
+      "key": "walk",
+      "label": "Walking",
+      "status": "done",
+      "file": "poses/walk_70c5f685.jpg",
+      "url": "/data/eff0bfbf-409c-4042-8a25-b17e32c835bd/poses/walk_70c5f685.jpg"
+    }
+  ],
+  "fullPrompt": "A Pakistani model in a bright minimal beige living room wearing the outfit from the reference image turns slowly toward the camera, smiles softly, touches her sleeve embroidery, then adjusts the dupatta. Slow cinematic push-in, soft window light, vertical 9:16.\n\nOutfit details: The outfit features a cream-and-mauve long tunic with a subtle satin-like sheen. Silver-toned embroidery and dense beadwork form vertical lines, floral motifs, and geometric patterns. It has long mauve sleeves with heavily embellished panels and cream cuffs. The hem is decorated with dense silver embroidery and pointed, scalloped edges. A dupatta and trousers are not visible in the image.\n\nNo text, no captions, no logo, no watermark, no brand name anywhere in the frame. Realistic skin, hands and fabric. Keep the outfit design, colours and embroidery exactly as in the reference photos.",
+  "startFrame": "/data/eff0bfbf-409c-4042-8a25-b17e32c835bd/start.jpg",
+  "error": "Building the 10s reel from 3 scene(s): ffmpeg failed: -enable-libvo-amrwbenc --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libxavs --enable-libxvid --enable-zlib\r\n  libavutil      52. 42.100 / 52. 42.100\r\n  libavcodec     55. 29.100 / 55. 29.100\r\n  libavformat    55. 14.101 / 55. 14.101\r\n  libavdevice    55.  3.100 / 55.  3.100\r\n  libavfilter     3. 82.100 /  3. 82.100\r\n  libswscale      2.  5.100 /  2.  5.100\r\n  libswresample   0. 17.103 /  0. 17.103\r\n  libpostproc    52.  3.100 / 52.  3.100\r\nInput #0, image2, from 'C:\\Users\\lenovo\\Desktop\\app\\data\\eff0bfbf-409c-4042-8a25-b17e32c835bd\\poses\\front_1767630e.jpg':\r\n  Duration: 00:00:00.04, start: 0.000000, bitrate: N/A\r\n    Stream #0:0: Video: mjpeg, yuvj420p, 1024x1536, 25 tbr, 25 tbn, 25 tbc\r\n[AVFilterGraph @ 00000000026974a0] No such filter: 'zoompan'\r\nError opening filters!\r\n"
+}
